@@ -1,0 +1,24 @@
+{
+  "shiori": {
+    "id": 1,
+    "title": "Shiori title 1",
+    "pageList": [
+      {
+        "id": 1,
+        "layout": "{ list:[{\"type\":\"SIMPLE_100\", \"blockIdList\":[1] }]}",
+        "blockList": [
+          {
+            "id": 1,
+            "type": "TITLE",
+            "content": "{ \"text\":\"t1\", \"description\":\"d1\" }"
+          },
+          {
+            "id": 2,
+            "type": "TITLE",
+            "content": "{ \"text\":\"t2\", \"description\":\"d2\" }"
+          }
+        ]
+      }
+    ]
+  }
+}

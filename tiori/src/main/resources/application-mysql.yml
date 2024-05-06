@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: tiori
+  docker:
+    compose: # https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.docker-compose
+      enabled: true
+      file: "docker/compose.yml"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tiori
+    username: root
+    password: root
+    initialize: true

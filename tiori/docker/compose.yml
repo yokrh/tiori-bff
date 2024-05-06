@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8.1
+    environment:
+      MYSQL_DATABASE: tiori
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-time-zone=Asia/Tokyo
+  flyway:
+    image: flyway/flyway
+    volumes:
+      - ./flyway/sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+    command: migrate
+    depends_on:
+      - mysql

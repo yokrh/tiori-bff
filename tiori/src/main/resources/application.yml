@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: tiori
+  h2:
+    console:
+      enabled: true  # access from http://localhost:8080/h2-console/
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:tiori;MODE=MySQL  # create h2's database automatically if not exist
+    username: root
+    password: pw
+    initialize: true
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+
+server:
+  error:
+    include-stacktrace: never
