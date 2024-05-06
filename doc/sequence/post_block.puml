@@ -1,0 +1,32 @@
+@startuml
+
+actor frontend as fe
+box backend #ddeeff
+participant api
+database inmemory_db as db
+participant cron_job as cron
+end box
+database s3 as s3
+
+== post block ==
+
+fe -> api: POST /v1/block
+
+opt invalid param
+  api -> fe: error response
+end opt
+
+opt invalid user
+  api -> fe: error response
+end opt
+
+api -> db: insert a block to db
+db -> api:
+
+opt general db error
+  api -> fe: error response
+end opt
+
+api -> fe: success response
+
+@enduml

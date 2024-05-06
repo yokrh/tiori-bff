@@ -1,0 +1,26 @@
+@startuml
+
+actor frontend as fe
+box backend #ddeeff
+participant api
+database inmemory_db as db
+participant cron_job as cron
+end box
+database s3 as s3
+
+== load shiori ==
+
+cron -> s3: get shiori list
+
+loop shiori list
+  cron -> db: count record
+  opt if record lack exist
+    cron -> db: fill with dummy data
+  end opt
+
+  cron -> db: insert shiori
+  cron -> db: insert page
+  cron -> db: insert block
+end loop
+
+@enduml

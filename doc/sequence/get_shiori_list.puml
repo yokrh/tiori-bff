@@ -1,0 +1,33 @@
+@startuml
+
+actor frontend as fe
+box backend #ddeeff
+participant api
+database inmemory_db as db
+participant cron_job as cron
+end box
+database s3 as s3
+
+== get shiori list ==
+
+fe -> api: GET /v1/shiori/list
+
+opt invalid param
+  api -> fe: error response
+end opt
+
+opt invalid user
+  api -> fe: error response
+end opt
+
+api -> db: query db to get shiori list
+note right: ignore if logical deleted
+db -> api:
+
+opt general db error
+  api -> fe: error response
+end opt
+
+api -> fe: shiori list
+
+@enduml

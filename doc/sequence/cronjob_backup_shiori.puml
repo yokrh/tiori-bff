@@ -1,0 +1,34 @@
+@startuml
+
+actor frontend as fe
+box backend #ddeeff
+participant api
+database inmemory_db as db
+participant cron_job as cron
+end box
+database s3 as s3
+
+== backup shiori ==
+
+cron -> db: query db to get block list having update
+db -> cron:
+
+cron -> db: query db to get latest shiori list
+db -> cron:
+
+opt general db error
+  cron -> cron: error log
+end opt
+
+loop shiori list
+  cron -> s3: upload shiori as backup
+  s3 -> cron:
+
+  opt general s3 error
+    cron -> cron: error log
+  end opt
+
+  cron -> cron: success log
+end loop
+
+@enduml

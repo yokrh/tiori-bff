@@ -1,0 +1,53 @@
+@startuml
+
+actor frontend as fe
+box backend #ddeeff
+participant api
+database inmemory_db as db
+participant cron_job as cron
+end box
+database s3 as s3
+
+== get shiori ==
+
+fe -> api: GET /v1/shiori/{shiori_id}
+
+opt invalid param
+  api -> fe: error response
+end opt
+
+opt invalid user
+  api -> fe: error response
+end opt
+
+api -> db: query db to get shiori
+note right: ignore if logical deleted
+db -> api:
+
+opt not found
+  api -> fe: error response
+end opt
+
+opt general db error
+  api -> fe: error response
+end opt
+
+api -> db: query db to get page list with shiori.id
+note right: ignore if logical deleted
+db -> api:
+
+opt general db error
+  api -> fe: error response
+end opt
+
+loop page list
+  api -> db: query db to get block with page.id
+  note right: ignore if logical deleted
+  db -> api:
+end loop
+
+api -> api: construct shiori with page list and block list
+
+api -> fe: shiori
+
+@enduml
