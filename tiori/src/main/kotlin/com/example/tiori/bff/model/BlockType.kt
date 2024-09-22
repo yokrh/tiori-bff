@@ -17,9 +17,8 @@ enum class BlockType {
 
     companion object {
         fun of(str: String): BlockType {
-            return BlockType.values()
-                .filter { it.name == str }
-                .firstOrNull()
+            return values()
+                .firstOrNull { it.name == str }
                 ?: throw CommonErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "invalid block type")
         }
     }
