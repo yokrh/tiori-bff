@@ -3,6 +3,8 @@
 
 ## Sample sql
 
+http://localhost:8080/h2-console/login.do
+
 ```sql
 select * from customer;
 select * from shiori;
@@ -19,8 +21,7 @@ curl -X POST localhost:8080/v1/customer \
 -H 'Content-Type: application/json' \
 -d '{"name": "Tiori Yamada"}' | jq .
 # {"header":{"status":"S","code":"0000","message":"Successful"},"body":{"name":"Tiori Yamada","uid":"bd5594bf-8d4f-4a11-9206-096faddcf1b3"}}
-UUID=5f27df89-aa83-4a32-adfe-28d17a03a3a2
-
+UUID=1d25a07e-53a9-47b3-9a56-c2f003512403
 
 
 # Shiori
@@ -47,19 +48,6 @@ curl -X PUT localhost:8080/v1/shiori/1 \
 curl -X DELETE localhost:8080/v1/shiori/1 \
 -H "X-Tiori-User:${UUID}"
 
-curl -X POST localhost:8080/v1/shiori/load \
--H "X-Tiori-User:${UUID}" \
--H 'Content-Type: application/json' \
--d '{"shiori":{"id":20,"title":"Shiori title 20","pageList":[{"id":20,"layout":"{ list:[{\"type\":\"SIMPLE_100\", \"blockIdList\":[1] }]}","blockList":[{"id":20,"type":"TITLE","content":"{ \"text\":\"t20\", \"description\":\"d20\" }"}]}]}}}'
-curl -X POST localhost:8080/v1/shiori/load \
--H "X-Tiori-User:${UUID}" \
--H 'Content-Type: application/json' \
--d '{"shiori":{"id":10,"title":"Shiori title 10","pageList":[{"id":10,"layout":"{ list:[{\"type\":\"SIMPLE_100\", \"blockIdList\":[1] }]}","blockList":[{"id":10,"type":"TITLE","content":"{ \"text\":\"t10\", \"description\":\"d10\" }"},{"id":11,"type":"TITLE","content":"{ \"text\":\"t11\", \"description\":\"d11\" }"}]}]}}}'
-
-curl -X GET localhost:8080/v1/shiori/10 \
--H "X-Tiori-User:${UUID}" | jq .
-
-
 
 # Page
 curl -X GET localhost:8080/v1/page/1 \
@@ -85,7 +73,6 @@ curl -X DELETE localhost:8080/v1/page/1 \
 -H "X-Tiori-User:${UUID}"
 
 
-
 # Block
 curl -X POST localhost:8080/v1/block \
 -H "X-Tiori-User:${UUID}" \
@@ -107,5 +94,19 @@ curl -X PUT localhost:8080/v1/block/1 \
 
 curl -X DELETE localhost:8080/v1/block/1 \
 -H "X-Tiori-User:${UUID}"
+
+
+# Load all
+curl -X POST localhost:8080/v1/shiori/load \
+-H "X-Tiori-User:${UUID}" \
+-H 'Content-Type: application/json' \
+-d '{"shiori":{"id":20,"title":"Shiori title 20","pageList":[{"id":20,"layout":"{ list:[{\"type\":\"SIMPLE_100\", \"blockIdList\":[20] }]}","blockList":[{"id":20,"type":"TITLE","content":"{ \"text\":\"t20\", \"description\":\"d20\" }"}]}]}}}'
+curl -X POST localhost:8080/v1/shiori/load \
+-H "X-Tiori-User:${UUID}" \
+-H 'Content-Type: application/json' \
+-d '{"shiori":{"id":10,"title":"Shiori title 10","pageList":[{"id":10,"layout":"{ list:[{\"type\":\"SIMPLE_100\", \"blockIdList\":[10] }]}","blockList":[{"id":10,"type":"TITLE","content":"{ \"text\":\"t10\", \"description\":\"d10\" }"},{"id":11,"type":"TITLE","content":"{ \"text\":\"t11\", \"description\":\"d11\" }"}]}]}}}'
+
+curl -X GET localhost:8080/v1/shiori/10 \
+-H "X-Tiori-User:${UUID}" | jq .
 
 ```
