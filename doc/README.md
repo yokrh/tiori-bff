@@ -21,8 +21,10 @@ curl -X POST localhost:8080/v1/customer \
 -H 'Content-Type: application/json' \
 -d '{"name": "Tiori Yamada"}' | jq .
 # {"header":{"status":"S","code":"0000","message":"Successful"},"body":{"name":"Tiori Yamada","uid":"bd5594bf-8d4f-4a11-9206-096faddcf1b3"}}
-UUID=1d25a07e-53a9-47b3-9a56-c2f003512403
+UUID=37b79f1a-c9ce-4b65-941b-96d412fd998c
 
+# Auth
+curl -X GET localhost:8080/v1/auth -H "X-Tiori-User:${UUID}" | jq .
 
 # Shiori
 curl -X GET localhost:8080/v1/shiori/list \
