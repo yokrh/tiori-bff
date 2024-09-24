@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CustomerRepository: CrudRepository<CustomerEntity, Long> {
     fun findByUidAndIsDeletedFalse(uid: String): CustomerEntity?
+    fun findByGid(gid: String): CustomerEntity?
 }

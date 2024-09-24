@@ -19,13 +19,13 @@ spring:
         registration:
           google:
             client-id: ${GOOGLE_CLIENT_ID:421957709511-ef6if70v7q721b1p3vscn7or9si7uoat.apps.googleusercontent.com}
-            client-secret: {GOOGLE_CLIENT_SECRET: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}
+            client-secret: ${GOOGLE_CLIENT_SECRET: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}
             # special callback url, which automatically stores user auth info
             redirect-uri: ${GOOGLE_REDIRECT_ID:http://localhost:8080/login/oauth2/code/google}
 server:
   error:
     include-stacktrace: never
-
+  servlet.session.cookie.http-only: false
 app:
   frontend:
     url: ${FRONTEND_URL:http://localhost:5173}

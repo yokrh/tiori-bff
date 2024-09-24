@@ -15,20 +15,27 @@ class CustomerService(
 ) {
     fun auth(uid: String): Long {
         // TODO: cache
-
         val entity = customerRepository.findByUidAndIsDeletedFalse(uid)
             ?: throw CommonErrorException(HttpStatus.NOT_FOUND, "customer not found")
         return entity.id
     }
 
-    fun save(request: CreateUserRequest): CreateUserResponseBody {
-        val uid = UUID.randomUUID().toString()
-
-        val entity = customerRepository.save(CustomerEntity(
-            uid = uid,
-            name = request.name,
-        ))
-
+    fun saveOrGet(
+        request: CreateUserRequest,
+        gid: String,
+        gname: String,
+        gmail: String,
+    ): CreateUserResponseBody {
+        val entity = customerRepository.findByGid(gid)
+            ?: customerRepository.save(
+                CustomerEntity(
+                    uid = UUID.randomUUID().toString(),
+                    name = request.name,
+                    gid = gid,
+                    gname = gname,
+                    gmail = gmail,
+                )
+            )
         return CreateUserResponseBody(
             name = entity.name,
             uid = entity.uid,

@@ -17,6 +17,15 @@ data class CustomerEntity (
     @Column(name="name")
     val name: String,
 
+    @Column(name="gid")
+    val gid: String,
+
+    @Column(name="gname")
+    val gname: String,
+
+    @Column(name="gmail")
+    val gmail: String,
+
     @Column(name="created_at")
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
