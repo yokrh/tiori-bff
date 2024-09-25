@@ -1,6 +1,15 @@
 package com.example.tiori.bff.repository.entity
 
-import jakarta.persistence.*
+import com.example.tiori.bff.model.PageLayoutContainer
+import com.example.tiori.bff.repository.PageLayoutJsonConverter
+import jakarta.persistence.Column
+import jakarta.persistence.Convert
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import jakarta.persistence.Version
 import java.time.LocalDateTime
 
 @Entity
@@ -14,8 +23,9 @@ data class PageEntity (
     @Column(name="shiori_id")
     val shioriId: Long,
 
+    @Convert(converter = PageLayoutJsonConverter::class)
     @Column(name="layout_json")
-    val layoutJson: String,
+    val layoutJson: PageLayoutContainer,
 
     @Column(name="created_at")
     val createdAt: LocalDateTime = LocalDateTime.now(),
@@ -33,7 +43,9 @@ data class PageEntity (
     companion object {
         fun dummy(): PageEntity = PageEntity(
             shioriId = -1,
-            layoutJson = "dummy",
+            layoutJson = PageLayoutContainer(
+                list = listOf()
+            ),
         )
     }
 }

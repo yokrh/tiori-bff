@@ -1,6 +1,7 @@
 package com.example.tiori.bff.controller.response
 
 import com.example.tiori.bff.model.BlockType
+import com.example.tiori.bff.model.PageLayoutContainer
 
 data class GetPageResponseBody(
     val page: Page,
@@ -8,7 +9,7 @@ data class GetPageResponseBody(
 
     data class Page(
         val id: Long,
-        val layout: String,
+        val layout: PageLayoutContainer,
         val blockList: List<Block>
     )
 

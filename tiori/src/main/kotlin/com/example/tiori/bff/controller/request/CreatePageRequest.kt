@@ -1,15 +1,25 @@
 package com.example.tiori.bff.controller.request
 
+import com.example.tiori.bff.model.PageLayoutType
 import com.fasterxml.jackson.annotation.JsonProperty
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.Size
 
 data class CreatePageRequest(
     @JsonProperty("shioriId")
     var shioriId: Long,
 
     @JsonProperty("layout")
-    @field:NotBlank(message = "layout is required")
-    @field:Size(max = 1000, message = "max length of layout is 1000")
-    var layout: String,
-)
+    var layout: PageLayoutContainer,
+) {
+    data class PageLayoutContainer(
+        @JsonProperty("list")
+        var pageLayoutList: List<PageLayout>
+    )
+
+    data class PageLayout(
+        @JsonProperty("type")
+        var type: PageLayoutType,
+
+        @JsonProperty("blockIdList")
+        var blockIdList: List<Int>,
+    )
+}

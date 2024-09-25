@@ -35,7 +35,6 @@ class ShioriController(
 ) {
     @GetMapping("/list")
     fun getShioriList(
-        @AuthenticationPrincipal user: OidcUser,
         @RequestHeader(CommonHeader.TIORI_API_HEADER) @Valid @NotNull uid: String,
     ): ResponseEntity<ApiResponse<GetShioriListResponseBody>> {
         val customerId = customerService.auth(uid = uid)

@@ -4,8 +4,11 @@ import com.example.tiori.bff.controller.request.CreatePageRequest
 import com.example.tiori.bff.controller.request.UpdatePageRequest
 import com.example.tiori.bff.controller.exception.CommonErrorException
 import com.example.tiori.bff.controller.response.GetShioriResponseBody
+import com.example.tiori.bff.model.PageLayout
+import com.example.tiori.bff.model.PageLayoutContainer
 import com.example.tiori.bff.repository.PageRepository
 import com.example.tiori.bff.repository.entity.PageEntity
+import org.hibernate.query.Page
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -26,7 +29,14 @@ class PageService(
         return pageRepository.save(
             PageEntity(
                 shioriId = request.shioriId,
-                layoutJson = request.layout,
+                layoutJson = PageLayoutContainer(
+                    list = request.layout.pageLayoutList.map {
+                        PageLayout(
+                            type = it.type,
+                            blockIdList = it.blockIdList,
+                        )
+                    }
+                )
             )
         ).id
     }
@@ -40,7 +50,14 @@ class PageService(
 
         pageRepository.save(
             entity.copy(
-                layoutJson = request.layout,
+                layoutJson = PageLayoutContainer(
+                    list = request.layout.pageLayoutList.map {
+                        PageLayout(
+                            type = it.type,
+                            blockIdList = it.blockIdList,
+                        )
+                    }
+                )
             )
         )
     }
@@ -70,7 +87,14 @@ class PageService(
             PageEntity(
                 id = page.id,
                 shioriId = shioriId,
-                layoutJson = page.layout,
+                layoutJson = PageLayoutContainer(
+                    list = page.layout.list.map {
+                        PageLayout(
+                            type = it.type,
+                            blockIdList = it.blockIdList,
+                        )
+                    }
+                )
             )
         )
     }
