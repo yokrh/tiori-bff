@@ -43,6 +43,10 @@ dependencies {
 	implementation("org.springframework.security:spring-security-oauth2-client")
 	implementation("org.springframework.security:spring-security-oauth2-jose")
 
+	// jackson
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+//	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
 //// mysql
 //	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 //	runtimeOnly("com.mysql:mysql-connector-j")
