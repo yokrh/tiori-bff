@@ -21,8 +21,10 @@ class WebSecurityConfig {
                 authorizeHttpRequests
                     .requestMatchers("/v1/customer").permitAll()
                     .requestMatchers("/oauth2/authorization/google").permitAll()
+                    .requestMatchers("/h2-console").permitAll()
                     .anyRequest().authenticated()
             }
+            .headers { h -> h.frameOptions { f -> f.sameOrigin() } } // for h2 console
             .csrf{ csrf -> csrf.disable() }
             .cors{ cors -> cors.configurationSource(corsConfigurationSource()) }
             .oauth2Login(Customizer.withDefaults())
