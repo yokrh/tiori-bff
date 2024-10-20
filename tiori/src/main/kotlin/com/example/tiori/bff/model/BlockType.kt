@@ -7,6 +7,8 @@ enum class BlockType {
     TITLE,
     SCHEDULE,
     PARTICIPANT,
+    SPOT,
+    MOVE,
     TEXT,
     IMAGE,
     TEXT_WITH_IMAGE_TOP_LEFT,
