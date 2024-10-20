@@ -17,7 +17,7 @@ data class BlockEntity (
     @Column(name="type")
     val type: String,
 
-    @Column(name="content_json")
+    @Column(name="content_json", columnDefinition = "VARCHAR(1024)")
     val contentJson: String,
 
     @Column(name="created_at")

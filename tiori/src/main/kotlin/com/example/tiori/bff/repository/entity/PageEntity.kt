@@ -24,7 +24,7 @@ data class PageEntity (
     val shioriId: Long,
 
     @Convert(converter = PageLayoutJsonConverter::class)
-    @Column(name="layout_json")
+    @Column(name="layout_json", columnDefinition = "VARCHAR(1024)")
     val layoutJson: PageLayoutContainer,
 
     @Column(name="created_at")
